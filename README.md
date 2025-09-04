@@ -1,5 +1,3 @@
-Testing
-
 # Menjalankan Program
 ## 1 - Instal pip
 Melakukan penginstalan di Arch Linux dengan perintah:
