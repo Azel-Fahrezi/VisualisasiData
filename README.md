@@ -35,6 +35,11 @@ Gunakan perintah di terminal:
 python [nama file].py
 ```
 
+```
+python3 analisis_log.py --time-mode relative --per-scenario --out-dir figures
+```
+
+
 # Referensi:
 https://chat.deepseek.com/a/chat/s/bcabe187-7d54-49f7-aa38-8186b97eb59b diakses menggunakan akun google pribadi.
 
