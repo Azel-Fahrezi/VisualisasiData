@@ -1,8 +1,15 @@
+import argparse
+from pathlib import Path
+import re
+import sys
+
 import pandas as pd
 import matplotlib.pyplot as plt
-import re
-from datetime import datetime
 import numpy as np
+
+# ---------------------------------------------------------------------------
+# Fungsi PARSER milik Anda (dipertahankan)
+# ---------------------------------------------------------------------------
 
 def parse_sar_log(log_content, label):
     """
@@ -87,84 +94,156 @@ def parse_sar_log(log_content, label):
     
     return cpu_df, mem_df
 
-# --- Sisa kode Anda (tidak perlu diubah) ---
+# ---------------------------------------------------------------------------
+# Utilitas: ekstraksi label dari nama file
+# ---------------------------------------------------------------------------
 
-# Muat dan parse kedua file log
-try:
-    with open('with_selinux_cpu_mem.log', 'r') as file:
-        with_selinux_content = file.read()
+def _normalize_scenario(raw: str) -> str:
+    s = raw.replace('shuwdown', 'shutdown')
+    s = s.replace('-', ' ').replace('_', ' ').strip()
+    # Perbaiki frasa umum
+    s = re.sub(r'\s+', ' ', s)
+    return s.title()
 
-    with open('no_selinux_cpu_mem.log', 'r') as file:
-        no_selinux_content = file.read()
+def extract_meta_from_filename(fname: str):
+    """
+    Mengembalikan (label, scenario, protection).
+    Label = "<Scenario Title> — <Protection Title>"
+    """
+    base = Path(fname).name
+    name_wo_ext = base.rsplit('.', 1)[0]
+    parts = name_wo_ext.split('_')
+    # Default
+    protection = 'No Protection'
+    # Deteksi proteksi
+    lower = name_wo_ext.lower()
+    if 'selinux' in lower:
+        protection = 'SELinux'
+    elif 'apparmor' in lower:
+        protection = 'AppArmor'
+    elif 'no-protection' in lower or 'noprotection' in lower or 'no_protection' in lower:
+        protection = 'No Protection'
+    # Ekstrak skenario dari token setelah 2 token timestamp
+    scenario_tokens = []
+    if len(parts) > 2:
+        # Ambil token mulai indeks 2 hingga sebelum token yang berisi proteksi/cpu/mem
+        stop_words = {'selinux', 'apparmor', 'no-protection', 'noprotection', 'no', 'protection',
+                      'cpu', 'mem', 'cpu_mem', 'cpumem'}
+        for tok in parts[2:]:
+            if tok.lower() in stop_words:
+                break
+            scenario_tokens.append(tok)
+    scenario_raw = ' '.join(scenario_tokens) if scenario_tokens else 'unknown'
+    scenario = _normalize_scenario(scenario_raw)
+    label = f"{scenario} — {protection}"
+    return label, scenario, protection
 
-    # Parse log
-    cpu_df_selinux, mem_df_selinux = parse_sar_log(with_selinux_content, 'With SELinux')
-    cpu_df_no_selinux, mem_df_no_selinux = parse_sar_log(no_selinux_content, 'Without SELinux')
+# ---------------------------------------------------------------------------
+# Loading semua file log dalam folder
+# ---------------------------------------------------------------------------
 
-    # Gabungkan data
-    cpu_combined = pd.concat([cpu_df_selinux, cpu_df_no_selinux], ignore_index=True)
-    mem_combined = pd.concat([mem_df_selinux, mem_df_no_selinux], ignore_index=True)
+def load_logs_from_dir(input_dir: Path):
+    input_dir = Path(input_dir)
+    log_paths = sorted(input_dir.glob("*.log"))
+    if not log_paths:
+        raise FileNotFoundError(f"Tidak menemukan file .log di: {input_dir.resolve()}")
+    cpu_frames = []
+    mem_frames = []
+    for p in log_paths:
+        try:
+            content = p.read_text(encoding='utf-8', errors='ignore')
+        except Exception:
+            # Coba binary then decode fallback
+            content = p.read_bytes().decode('utf-8', errors='ignore')
+        label, scenario, protection = extract_meta_from_filename(p.name)
+        cpu_df, mem_df = parse_sar_log(content, label)
+        if not cpu_df.empty:
+            cpu_df['Scenario'] = scenario
+            cpu_df['Protection'] = protection
+            cpu_df['Source_File'] = p.name
+            cpu_frames.append(cpu_df)
+        if not mem_df.empty:
+            mem_df['Scenario'] = scenario
+            mem_df['Protection'] = protection
+            mem_df['Source_File'] = p.name
+            mem_frames.append(mem_df)
+    if not cpu_frames:
+        raise RuntimeError("Tidak ada data CPU terbaca. Pastikan format log sesuai `sar -u ALL`.")
+    if not mem_frames:
+        raise RuntimeError("Tidak ada data Memori terbaca. Pastikan format log sesuai `sar -r`.")
+    cpu_combined = pd.concat(cpu_frames, ignore_index=True)
+    mem_combined = pd.concat(mem_frames, ignore_index=True)
+    return cpu_combined, mem_combined
 
-    # Buat visualisasi
-    plt.style.use('seaborn-v0_8-whitegrid')
+# ---------------------------------------------------------------------------
+# Plotting
+# ---------------------------------------------------------------------------
+
+def try_set_style():
+    try:
+        plt.style.use('seaborn-v0_8-whitegrid')
+    except Exception:
+        pass
+
+def make_plots(cpu_combined: pd.DataFrame, mem_combined: pd.DataFrame, outpath: Path, title: str):
+    try_set_style()
     plt.figure(figsize=(16, 12))
-    
-    # Perbandingan Penggunaan CPU
-    plt.subplot(2, 2, 1)
+
+    # CPU Usage = 100 - %idle
+    ax1 = plt.subplot(2, 2, 1)
     for config in cpu_combined['Config'].unique():
-        config_data = cpu_combined[cpu_combined['Config'] == config]
-        plt.plot(config_data['Time_Index'], 100 - config_data['%idle'], 
-                 label=config, linewidth=2, alpha=0.8)
-    plt.title('CPU Utilization Comparison', fontsize=14, fontweight='bold')
-    plt.xlabel('Time (minutes)', fontsize=12)
-    plt.ylabel('CPU Usage (%)', fontsize=12)
-    plt.legend()
-    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+        d = cpu_combined[cpu_combined['Config'] == config]
+        ax1.plot(d['Time_Index'], 100 - d['%idle'], label=config, linewidth=2, alpha=0.9)
+    ax1.set_title('CPU Utilization Comparison', fontsize=14, fontweight='bold')
+    ax1.set_xlabel('Time (minutes)')
+    ax1.set_ylabel('CPU Usage (%)')
+    ax1.legend(); ax1.grid(True, linestyle='--', linewidth=0.5)
 
-    # Perbandingan Penggunaan Memori
-    plt.subplot(2, 2, 2)
+    # Memory %used
+    ax2 = plt.subplot(2, 2, 2)
     for config in mem_combined['Config'].unique():
-        config_data = mem_combined[mem_combined['Config'] == config]
-        plt.plot(config_data['Time_Index'], config_data['%memused'], 
-                 label=config, linewidth=2, alpha=0.8)
-    plt.title('Memory Usage Comparison', fontsize=14, fontweight='bold')
-    plt.xlabel('Time (minutes)', fontsize=12)
-    plt.ylabel('Memory Used (%)', fontsize=12)
-    plt.legend()
-    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+        d = mem_combined[mem_combined['Config'] == config]
+        ax2.plot(d['Time_Index'], d['%memused'], label=config, linewidth=2, alpha=0.9)
+    ax2.set_title('Memory Usage Comparison', fontsize=14, fontweight='bold')
+    ax2.set_xlabel('Time (minutes)')
+    ax2.set_ylabel('Memory Used (%)')
+    ax2.legend(); ax2.grid(True, linestyle='--', linewidth=0.5)
 
-    # Perbandingan Komitmen Memori
-    plt.subplot(2, 2, 3)
+    # Memory %commit
+    ax3 = plt.subplot(2, 2, 3)
     for config in mem_combined['Config'].unique():
-        config_data = mem_combined[mem_combined['Config'] == config]
-        plt.plot(config_data['Time_Index'], config_data['%commit'], 
-                 label=config, linewidth=2, alpha=0.8)
-    plt.title('Memory Commit Comparison', fontsize=14, fontweight='bold')
-    plt.xlabel('Time (minutes)', fontsize=12)
-    plt.ylabel('Commit Percentage (%)', fontsize=12)
-    plt.legend()
-    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+        d = mem_combined[mem_combined['Config'] == config]
+        ax3.plot(d['Time_Index'], d['%commit'], label=config, linewidth=2, alpha=0.9)
+    ax3.set_title('Memory Commit Comparison', fontsize=14, fontweight='bold')
+    ax3.set_xlabel('Time (minutes)')
+    ax3.set_ylabel('Commit Percentage (%)')
+    ax3.legend(); ax3.grid(True, linestyle='--', linewidth=0.5)
 
-    # Perbandingan I/O Wait
-    plt.subplot(2, 2, 4)
+    # CPU %iowait
+    ax4 = plt.subplot(2, 2, 4)
     for config in cpu_combined['Config'].unique():
-        config_data = cpu_combined[cpu_combined['Config'] == config]
-        plt.plot(config_data['Time_Index'], config_data['%iowait'], 
-                 label=config, linewidth=2, alpha=0.8)
-    plt.title('I/O Wait Comparison', fontsize=14, fontweight='bold')
-    plt.xlabel('Time (minutes)', fontsize=12)
-    plt.ylabel('I/O Wait (%)', fontsize=12)
-    plt.legend()
-    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+        d = cpu_combined[cpu_combined['Config'] == config]
+        ax4.plot(d['Time_Index'], d['%iowait'], label=config, linewidth=2, alpha=0.9)
+    ax4.set_title('I/O Wait Comparison', fontsize=14, fontweight='bold')
+    ax4.set_xlabel('Time (minutes)')
+    ax4.set_ylabel('I/O Wait (%)')
+    ax4.legend(); ax4.grid(True, linestyle='--', linewidth=0.5)
 
     plt.tight_layout(pad=3.0)
-    plt.suptitle('SELinux Performance Comparison: CPU & Memory', fontsize=18, fontweight='bold')
+    plt.suptitle(title, fontsize=18, fontweight='bold')
     plt.subplots_adjust(top=0.92)
-    plt.savefig('selinux_comparison_corrected.png', dpi=300, bbox_inches='tight')
-    plt.show()
+    outpath = Path(outpath)
+    outpath.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(outpath, dpi=300, bbox_inches='tight')
+    # Jangan plt.show() saat headless
+    print(f"[OK] Grafik tersimpan: {outpath}")
 
-    # Buat ringkasan statistik
-    print("CPU Statistics Summary:")
+# ---------------------------------------------------------------------------
+# Ringkasan & perbandingan
+# ---------------------------------------------------------------------------
+
+def print_summaries(cpu_combined: pd.DataFrame, mem_combined: pd.DataFrame):
+    print("CPU Statistics Summary (per Config):")
     cpu_summary = cpu_combined.groupby('Config').agg({
         '%user': ['mean', 'max'],
         '%system': ['mean', 'max'],
@@ -173,25 +252,75 @@ try:
     }).round(2)
     print(cpu_summary)
 
-    print("\nMemory Statistics Summary:")
+    print("\nMemory Statistics Summary (per Config):")
     mem_summary = mem_combined.groupby('Config').agg({
         '%memused': ['mean', 'max'],
         '%commit': ['mean', 'max'],
         'kbcached': 'mean'
     }).round(2)
     print(mem_summary)
+    return cpu_summary, mem_summary
 
-    # Hitung perbedaan
-    print("\nPerformance Differences (Mean Values):")
-    mem_diff = mem_summary.loc['With SELinux', ('%memused', 'mean')] - mem_summary.loc['Without SELinux', ('%memused', 'mean')]
-    commit_diff = mem_summary.loc['With SELinux', ('%commit', 'mean')] - mem_summary.loc['Without SELinux', ('%commit', 'mean')]
-    iowait_diff = cpu_summary.loc['With SELinux', ('%iowait', 'mean')] - cpu_summary.loc['Without SELinux', ('%iowait', 'mean')]
-    
-    print(f"Memory Usage: {mem_diff:.2f}% {'higher' if mem_diff > 0 else 'lower'} with SELinux")
-    print(f"Memory Commit: {commit_diff:.2f}% {'higher' if commit_diff > 0 else 'lower'} with SELinux")
-    print(f"I/O Wait: {iowait_diff:.2f}% {'higher' if iowait_diff > 0 else 'lower'} with SELinux")
+def print_pairwise_differences(cpu_combined: pd.DataFrame, mem_combined: pd.DataFrame):
+    # Hitung rata-rata per (Scenario, Protection)
+    cpu_means = cpu_combined.groupby(['Scenario', 'Protection']).agg({
+        '%iowait': 'mean',
+        '%user': 'mean',
+        '%system': 'mean',
+        '%idle': 'mean'
+    })
+    mem_means = mem_combined.groupby(['Scenario', 'Protection']).agg({
+        '%memused': 'mean',
+        '%commit': 'mean'
+    })
+    scenarios = sorted(set(cpu_combined['Scenario']) | set(mem_combined['Scenario']))
+    print("\nPerformance Differences (Mean Values) — Pairwise per Scenario:")
+    for sc in scenarios:
+        protos = ['SELinux', 'AppArmor', 'No Protection']
+        available = [p for p in protos if (sc, p) in cpu_means.index and (sc, p) in mem_means.index]
+        # Prioritas banding SELinux vs AppArmor, lalu SELinux vs No Protection
+        pairs = []
+        if 'SELinux' in available and 'AppArmor' in available:
+            pairs.append(('SELinux', 'AppArmor'))
+        if 'SELinux' in available and 'No Protection' in available:
+            pairs.append(('SELinux', 'No Protection'))
+        if not pairs and len(available) >= 2:
+            # Ambil pasangan pertama tersedia
+            pairs.append((available[0], available[1]))
+        if not pairs:
+            continue
+        print(f"\n[Skenario] {sc}:")
+        for a, b in pairs:
+            iowait_diff = cpu_means.loc[(sc, a), '%iowait'] - cpu_means.loc[(sc, b), '%iowait']
+            mem_diff = mem_means.loc[(sc, a), '%memused'] - mem_means.loc[(sc, b), '%memused']
+            commit_diff = mem_means.loc[(sc, a), '%commit'] - mem_means.loc[(sc, b), '%commit']
+            print(f"  {a} vs {b}: ΔIOwait={iowait_diff:.2f} pp, ΔMemUsed={mem_diff:.2f} pp, ΔCommit={commit_diff:.2f} pp")
 
-except FileNotFoundError as e:
-    print(f"Error: File tidak ditemukan - {e}. Pastikan file log berada di direktori yang sama.")
-except Exception as e:
-    print(f"Terjadi kesalahan: {e}")
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def main():
+    ap = argparse.ArgumentParser(description="Analisis log sar CPU/Mem untuk beberapa konfigurasi proteksi.")
+    ap.add_argument("-i", "--input", default="log_cpu_mem",
+                    help="Folder berisi file *.log (default: log_cpu_mem)")
+    ap.add_argument("-o", "--output", default="selinux_apparmor_comparison.png",
+                    help="Path file PNG output grafik")
+    ap.add_argument("--title", default="Performance Comparison: CPU & Memory",
+                    help="Judul utama grafik")
+    args = ap.parse_args()
+
+    try:
+        cpu_combined, mem_combined = load_logs_from_dir(Path(args.input))
+        make_plots(cpu_combined, mem_combined, Path(args.output), args.title)
+        cpu_summary, mem_summary = print_summaries(cpu_combined, mem_combined)
+        print_pairwise_differences(cpu_combined, mem_combined)
+    except FileNotFoundError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(2)
+    except Exception as e:
+        print(f"Terjadi kesalahan: {e}", file=sys.stderr)
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
