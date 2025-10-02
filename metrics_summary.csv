@@ -17,9 +17,9 @@ Defense Evasion,SELinux,0.49,0.132,8.956,12.553
 Environment Variable Theft,AppArmor,0.226,0.187,6.842,10.91
 Environment Variable Theft,No Protection,3.244,0.142,5.99,10.556
 Environment Variable Theft,SELinux,1.614,0.174,9.263,12.586
-Kernel Reconnaisance,SELinux,1.841,0.222,9.455,12.621
 Kernel Reconnaissance,AppArmor,0.23,0.184,6.855,10.91
 Kernel Reconnaissance,No Protection,3.803,0.246,6.18,10.561
+Kernel Reconnaissance,SELinux,1.841,0.222,9.455,12.621
 Log Clearing,AppArmor,0.217,0.184,6.823,10.91
 Log Clearing,No Protection,3.075,0.298,5.872,10.548
 Log Clearing,SELinux,0.46,0.123,7.939,12.446
