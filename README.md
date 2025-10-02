@@ -36,7 +36,11 @@ python [nama file].py
 ```
 
 ```
-python3 analisis_log.py --time-mode relative --per-scenario --out-dir figures
+python3 analisis_log.py --out-dir figures
+
+# Atau
+
+python3 analisis_log.py --time-mode global --out-dir figures
 ```
 
 
