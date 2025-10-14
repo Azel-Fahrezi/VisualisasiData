@@ -1,0 +1,367 @@
+Linux 6.12.38+deb13-amd64 (debian) 	10/04/2025 	_x86_64_	(2 CPU)
+
+09:46:44 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:45 PM     all      0.46      0.00      7.87      0.00      0.00     91.67
+
+09:46:44 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:45 PM   1733348   1714852    130824      6.47     12176     92684    342624     10.88    119704     25708        80
+
+09:46:45 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:46 PM     all      0.00      0.00      4.74      0.00      0.00     95.26
+
+09:46:45 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:46 PM   1733348   1714852    130824      6.47     12176     92684    342624     10.88    119728     25708        88
+
+09:46:46 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:47 PM     all      0.00      0.00      1.84      0.00      0.00     98.16
+
+09:46:46 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:47 PM   1733348   1714852    130824      6.47     12180     92680    342624     10.88    119728     25708        88
+
+09:46:47 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:48 PM     all      0.00      0.00      0.00      1.39      0.00     98.61
+
+09:46:47 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:48 PM   1733348   1714852    130816      6.47     12184     92684    342624     10.88    119752     25708       128
+
+09:46:48 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:49 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:46:48 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:49 PM   1733348   1714852    130816      6.47     12184     92684    342624     10.88    119752     25708       128
+
+09:46:49 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:50 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:46:49 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:50 PM   1733348   1714856    130816      6.47     12184     92684    342624     10.88    119756     25716       120
+
+09:46:50 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:51 PM     all      0.00      0.00      0.50      0.00      0.00     99.50
+
+09:46:50 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:51 PM   1733348   1714856    130816      6.47     12184     92684    342624     10.88    119756     25716       120
+
+09:46:51 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:52 PM     all      0.00      0.00      0.50      0.00      0.00     99.50
+
+09:46:51 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:52 PM   1733348   1714856    130816      6.47     12184     92684    342624     10.88    119756     25716       120
+
+09:46:52 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:53 PM     all      0.00      0.00      0.00      0.50      0.00     99.50
+
+09:46:52 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:53 PM   1733348   1714856    130808      6.47     12192     92684    342624     10.88    119756     25716       124
+
+09:46:53 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:54 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:46:53 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:54 PM   1733348   1714856    130808      6.47     12192     92684    342624     10.88    119756     25716       124
+
+09:46:54 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:55 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:46:54 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:55 PM   1733348   1714864    130804      6.47     12192     92688    342624     10.88    119760     25728       132
+
+09:46:55 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:56 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:46:55 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:56 PM   1733348   1714864    130804      6.47     12192     92688    342624     10.88    119760     25728       136
+
+09:46:56 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:57 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:46:56 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:57 PM   1733348   1714864    130804      6.47     12192     92688    342624     10.88    119760     25728       136
+
+09:46:57 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:58 PM     all      0.00      0.00      0.00      2.01      0.00     97.99
+
+09:46:57 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:58 PM   1733348   1714864    130804      6.47     12200     92680    342624     10.88    119760     25728       136
+
+09:46:58 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:46:59 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:46:58 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:46:59 PM   1733348   1714864    130796      6.47     12200     92688    342624     10.88    119760     25728       140
+
+09:46:59 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:00 PM     all      0.00      0.00      0.99      0.00      0.00     99.01
+
+09:46:59 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:00 PM   1733348   1714864    130796      6.47     12200     92688    342624     10.88    119760     25728       128
+
+09:47:00 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:01 PM     all      0.00      0.00      0.49      0.00      0.00     99.51
+
+09:47:00 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:01 PM   1733348   1714868    130796      6.47     12200     92688    342624     10.88    119788     25736       128
+
+09:47:01 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:02 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:01 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:02 PM   1733348   1714868    130796      6.47     12200     92688    342624     10.88    119788     25736       128
+
+09:47:02 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:03 PM     all      0.00      0.00      0.00      1.98      0.00     98.02
+
+09:47:02 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:03 PM   1733348   1714868    130788      6.47     12208     92688    342624     10.88    119788     25736       128
+
+09:47:03 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:04 PM     all      0.00      0.00      0.48      0.00      0.00     99.52
+
+09:47:03 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:04 PM   1733348   1714868    130788      6.47     12208     92688    342624     10.88    119788     25736       128
+
+09:47:04 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:05 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:04 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:05 PM   1733348   1714872    130788      6.47     12208     92688    342624     10.88    119792     25744       140
+
+09:47:05 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:06 PM     all      0.00      0.00      0.50      0.00      0.00     99.50
+
+09:47:05 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:06 PM   1733348   1714872    130784      6.47     12208     92692    342624     10.88    119792     25744       136
+
+09:47:06 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:07 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:06 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:07 PM   1733348   1714872    130784      6.47     12208     92692    342624     10.88    119792     25744       140
+
+09:47:07 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:08 PM     all      0.00      0.00      0.00      0.50      0.00     99.50
+
+09:47:07 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:08 PM   1733348   1714872    130776      6.47     12216     92692    342624     10.88    119792     25744       144
+
+09:47:08 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:10 PM     all      0.50      0.00      0.00      0.00      0.00     99.50
+
+09:47:08 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:10 PM   1733348   1714872    130776      6.47     12216     92692    342624     10.88    119792     25744       144
+
+09:47:10 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:11 PM     all      0.00      0.00      0.50      0.00      0.00     99.50
+
+09:47:10 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:11 PM   1733348   1714872    130776      6.47     12216     92692    342624     10.88    119792     25744       132
+
+09:47:11 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:12 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:11 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:12 PM   1733348   1714872    130776      6.47     12216     92692    342624     10.88    119792     25744       132
+
+09:47:12 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:13 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:12 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:13 PM   1733348   1714876    130776      6.47     12216     92692    342624     10.88    119816     25756       128
+
+09:47:13 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:14 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:13 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:14 PM   1733348   1714876    130776      6.47     12216     92692    342624     10.88    119816     25756       132
+
+09:47:14 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:15 PM     all      0.00      0.00      1.00      1.99      0.00     97.01
+
+09:47:14 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:15 PM   1733348   1714876    130764      6.47     12224     92696    342624     10.88    119816     25756        68
+
+09:47:15 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:16 PM     all      0.00      0.00      0.50      0.00      0.00     99.50
+
+09:47:15 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:16 PM   1733348   1714876    130760      6.47     12224     92700    342624     10.88    119820     25756        80
+
+09:47:16 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:17 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:16 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:17 PM   1733348   1714876    130756      6.47     12224     92704    342624     10.88    119820     25756        84
+
+09:47:17 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:18 PM     all      0.00      0.00      0.50      0.00      0.00     99.50
+
+09:47:17 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:18 PM   1733348   1714876    130756      6.47     12224     92704    342624     10.88    119820     25756        84
+
+09:47:18 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:19 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:18 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:19 PM   1733348   1714880    130756      6.47     12224     92704    342624     10.88    119844     25760        20
+
+09:47:19 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:20 PM     all      0.00      0.00      0.50      1.99      0.00     97.51
+
+09:47:19 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:20 PM   1733348   1714892    130744      6.47     12232     92704    342624     10.88    119844     25776        48
+
+09:47:20 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:21 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:20 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:21 PM   1733348   1714892    130744      6.47     12232     92704    342624     10.88    119844     25776        36
+
+09:47:21 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:22 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:21 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:22 PM   1733348   1714892    130744      6.47     12232     92704    342624     10.88    119844     25776        36
+
+09:47:22 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:23 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:22 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:23 PM   1733348   1714896    130744      6.47     12232     92704    342624     10.88    119844     25784        36
+
+09:47:23 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:24 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:23 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:24 PM   1733348   1714896    130744      6.47     12232     92704    342624     10.88    119844     25784        36
+
+09:47:24 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:25 PM     all      0.00      0.00      0.50      0.00      0.00     99.50
+
+09:47:24 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:25 PM   1733348   1714896    130744      6.47     12232     92704    342624     10.88    119844     25784        36
+
+09:47:25 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:26 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:25 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:26 PM   1733348   1714900    130732      6.47     12240     92708    342624     10.88    119872     25796        36
+
+09:47:26 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:27 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:26 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:27 PM   1733348   1714900    130728      6.47     12240     92712    342624     10.88    119872     25796        40
+
+09:47:27 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:28 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:27 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:28 PM   1733348   1714900    130728      6.47     12240     92712    342624     10.88    119872     25796        40
+
+09:47:28 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:29 PM     all      0.00      0.00      0.49      0.00      0.00     99.51
+
+09:47:28 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:29 PM   1733348   1714900    130728      6.47     12240     92712    342624     10.88    119872     25796        40
+
+09:47:29 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:30 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:29 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:30 PM   1733348   1714900    130728      6.47     12240     92712    342624     10.88    119872     25796        40
+
+09:47:30 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:31 PM     all      0.00      0.00      0.47      0.00      0.00     99.53
+
+09:47:30 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:31 PM   1733348   1714904    130728      6.47     12240     92712    342624     10.88    119872     25800         0
+
+09:47:31 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:32 PM     all      0.00      0.00      0.50      0.50      0.00     99.01
+
+09:47:31 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:32 PM   1733348   1714908    130720      6.47     12248     92712    342624     10.88    119872     25808        20
+
+09:47:32 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:33 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:32 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:33 PM   1733348   1714908    130720      6.47     12248     92712    342624     10.88    119872     25808        20
+
+09:47:33 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:34 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:33 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:34 PM   1733348   1714908    130720      6.47     12248     92712    342624     10.88    119872     25808        20
+
+09:47:34 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:35 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:34 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:35 PM   1733348   1714908    130720      6.47     12248     92712    342624     10.88    119872     25808        20
+
+09:47:35 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:36 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:35 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:36 PM   1733348   1714908    130720      6.47     12248     92712    342624     10.88    119872     25808        32
+
+09:47:36 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:37 PM     all      0.00      0.00      0.00      0.32      0.00     99.68
+
+09:47:36 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:37 PM   1733348   1714912    130708      6.47     12256     92716    342624     10.88    119876     25816        12
+
+09:47:37 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:38 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:37 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:38 PM   1733348   1714912    130708      6.47     12256     92716    342624     10.88    119876     25816        12
+
+09:47:38 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:39 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:38 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:39 PM   1733348   1714912    130708      6.47     12256     92716    342624     10.88    119876     25816        16
+
+09:47:39 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:40 PM     all      0.00      0.00      0.49      0.00      0.00     99.51
+
+09:47:39 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:40 PM   1733348   1714912    130708      6.47     12256     92716    342624     10.88    119876     25820         4
+
+09:47:40 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:41 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:40 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:41 PM   1733348   1714912    130708      6.47     12256     92716    342624     10.88    119876     25820         4
+
+09:47:41 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:42 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:41 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:42 PM   1733348   1714916    130700      6.47     12264     92716    342624     10.88    119876     25828        16
+
+09:47:42 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:43 PM     all      0.00      0.00      0.49      0.00      0.00     99.51
+
+09:47:42 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:43 PM   1733348   1714916    130700      6.47     12264     92716    342624     10.88    119876     25828        12
+
+09:47:43 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:44 PM     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+09:47:43 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:44 PM   1733348   1714916    130700      6.47     12264     92716    342624     10.88    119876     25828        16
+
+09:47:44 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:47:45 PM     all      0.00      0.00      0.50      0.00      0.00     99.50
+
+09:47:44 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+09:47:45 PM   1733348   1714916    130700      6.47     12264     92716    342624     10.88    119876     25828        16
+
+Average:        CPU     %user     %nice   %system   %iowait    %steal     %idle
+Average:        all      0.02      0.00      0.41      0.19      0.00     99.38
+
+Average:    kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+Average:      1733348   1714883    130762      6.47     12221     92699    342624     10.88    119817     25764        77

@@ -10,6 +10,17 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
+# ========================== WARNA & URUTAN TETAP ============================
+
+# Urutan dan warna tetap per proteksi (Tableau10 default)
+PROTECTION_ORDER = ["SELinux", "AppArmor", "No Protection"]
+COLOR_MAP = {
+    "SELinux": "#1f77b4",       # biru
+    "AppArmor": "#ff7f0e",      # oranye
+    "No Protection": "#2ca02c", # hijau
+}
+
+
 # ============================== PARSER SAR ==================================
 
 def parse_sar_log(log_content: str, label: str, base_dt: Optional[datetime] = None):
@@ -69,7 +80,6 @@ def parse_sar_log(log_content: str, label: str, base_dt: Optional[datetime] = No
 # ========================= META DARI NAMA FILE ==============================
 
 def _normalize_scenario(raw: str) -> str:
-    s = raw.replace('shuwdown', 'shutdown')
     s = s.replace('-', ' ').replace('_', ' ').strip()
     s = re.sub(r'\s+', ' ', s)
     return s.title() if s else 'Unknown'
@@ -144,8 +154,8 @@ def load_logs_from_dir(input_dir: Path):
     cpu['Rel_Index'] = cpu.groupby('Source_File')['AbsTime'].transform(lambda s: (s - s.min()).dt.total_seconds() / 60.0)
     mem['Rel_Index'] = mem.groupby('Source_File')['AbsTime'].transform(lambda s: (s - s.min()).dt.total_seconds() / 60.0)
 
-    cpu.sort_values(['AbsTime','Config'], inplace=True, ignore_index=True)
-    mem.sort_values(['AbsTime','Config'], inplace=True, ignore_index=True)
+    cpu.sort_values(['AbsTime','Protection'], inplace=True, ignore_index=True)
+    mem.sort_values(['AbsTime','Protection'], inplace=True, ignore_index=True)
     return cpu, mem
 
 
@@ -170,12 +180,11 @@ def break_on_gaps(df: pd.DataFrame, y_col: str, gap_mult: float = 3.0) -> pd.Dat
 
 # ======================= GENERIC SINGLE-METRIC CHART ========================
 
-def _plot_single_metric(data: pd.DataFrame, metric_col: str, y_label: str,
-                        outpath: Path, title: str, time_mode: str,
-                        mean_name: str):
+def _plot_single_metric_by_protection(data: pd.DataFrame, metric_col: str, y_label: str,
+                                      outpath: Path, title: str, time_mode: str,
+                                      mean_name: str = 'μ'):
     """
-    Plot satu metrik (overlay semua Config) untuk satu skenario.
-    mean_name: nama kolom mean yang dicetak di legenda (mis. 'μ')
+    Plot satu metrik (overlay berdasarkan Protection) dengan warna terkunci.
     """
     try_set_style()
     xcol = 'Rel_Index' if time_mode == 'relative' else 'Global_Index'
@@ -184,15 +193,21 @@ def _plot_single_metric(data: pd.DataFrame, metric_col: str, y_label: str,
     plt.figure(figsize=(14, 7))
     ax = plt.gca()
 
-    # Mean per Config
-    means = data.groupby('Config')[metric_col].mean().round(3)
+    # Mean per Protection untuk legenda stabil
+    means = data.groupby('Protection')[metric_col].mean().round(3)
 
-    for config in data['Config'].unique():
-        d = data[data['Config'] == config]
+    for prot in PROTECTION_ORDER:
+        d = data[data['Protection'] == prot]
+        if d.empty:
+            continue
         d = break_on_gaps(d, metric_col)
-        mu = means.loc[config] if config in means.index else np.nan
-        ax.plot(d[xcol], d[metric_col], linewidth=2, alpha=0.95,
-                label=f"{config} — {mean_name}={mu}")
+        mu = means.loc[prot] if prot in means.index else np.nan
+        ax.plot(
+            d[xcol], d[metric_col],
+            linewidth=2, alpha=0.95,
+            color=COLOR_MAP.get(prot),
+            label=f"{prot} — {mean_name}={mu}"
+        )
 
     ax.set_title(f"{title}{subtitle}", fontsize=14, fontweight='bold')
     ax.set_xlabel('Time (minutes)'); ax.set_ylabel(y_label)
@@ -226,31 +241,31 @@ def make_four_charts_per_scenario(cpu: pd.DataFrame, mem: pd.DataFrame,
 
         # 1) CPU Usage
         cpu_sc['CPU_Usage'] = 100.0 - cpu_sc['%idle']
-        _plot_single_metric(
+        _plot_single_metric_by_protection(
             data=cpu_sc, metric_col='CPU_Usage', y_label='CPU Usage (%)',
             outpath=sub / f"{_safe(sc)}_CPUUsage_{time_mode}.png",
-            title=f"CPU Usage — {sc}", time_mode=time_mode, mean_name='μ'
+            title=f"CPU Usage — {sc}", time_mode=time_mode
         )
 
         # 2) I/O Wait
-        _plot_single_metric(
+        _plot_single_metric_by_protection(
             data=cpu_sc, metric_col='%iowait', y_label='I/O Wait (%)',
             outpath=sub / f"{_safe(sc)}_IOWait_{time_mode}.png",
-            title=f"I/O Wait — {sc}", time_mode=time_mode, mean_name='μ'
+            title=f"I/O Wait — {sc}", time_mode=time_mode
         )
 
         # 3) MemUsed
-        _plot_single_metric(
+        _plot_single_metric_by_protection(
             data=mem_sc, metric_col='%memused', y_label='Memory Used (%)',
             outpath=sub / f"{_safe(sc)}_MemUsed_{time_mode}.png",
-            title=f"Memory Usage — {sc}", time_mode=time_mode, mean_name='μ'
+            title=f"Memory Usage — {sc}", time_mode=time_mode
         )
 
         # 4) Commit
-        _plot_single_metric(
+        _plot_single_metric_by_protection(
             data=mem_sc, metric_col='%commit', y_label='Commit Percentage (%)',
             outpath=sub / f"{_safe(sc)}_Commit_{time_mode}.png",
-            title=f"Memory Commit — {sc}", time_mode=time_mode, mean_name='μ'
+            title=f"Memory Commit — {sc}", time_mode=time_mode
         )
 
 
@@ -267,7 +282,7 @@ def compute_summary(cpu: pd.DataFrame, mem: pd.DataFrame) -> pd.DataFrame:
         MemUsed_mean=('%memused','mean'),
         Commit_mean=('%commit','mean')
     )
-    return g1.join(g2, how='outer').round(3).reset_index()
+    return g1.join(g2, how='inner').round(3).reset_index()
 
 def save_summary_csv(df: pd.DataFrame, out_csv: Path):
     out_csv = Path(out_csv); out_csv.parent.mkdir(parents=True, exist_ok=True)
@@ -278,7 +293,7 @@ def save_summary_csv(df: pd.DataFrame, out_csv: Path):
 # ================================= MAIN =====================================
 
 def main():
-    ap = argparse.ArgumentParser(description="4 grafik per skenario (CPU Usage, I/O Wait, MemUsed, Commit).")
+    ap = argparse.ArgumentParser(description="4 grafik per skenario (CPU Usage, I/O Wait, MemUsed, Commit) dengan warna proteksi konsisten.")
     ap.add_argument("-i","--input", default="log_cpu_mem", help="Folder *.log")
     ap.add_argument("--time-mode", choices=["relative","global"], default="relative",
                     help="relative=overlay per file, global=linimasa gabungan")
