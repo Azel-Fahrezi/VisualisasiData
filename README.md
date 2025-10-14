@@ -41,6 +41,9 @@ python3 analisis_log.py --out-dir figures
 # Atau
 
 python3 analisis_log.py --time-mode global --out-dir figures
+
+# Update
+python analisis_log.py -i log_cpu_mem --out-dir figures --summary-dir figures
 ```
 
 
