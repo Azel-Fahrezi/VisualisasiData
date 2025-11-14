@@ -4,13 +4,13 @@ Melakukan penginstalan di Arch Linux dengan perintah:
 ```
 sudo pacman -S python-pip
 ```
-# 2 - Membuat Virtual Environment
+# 2 - Membuat Virtual Environment di Arch
 Sebelum membuat-nya pastikan sudah diinstal, di Arch Linux dengan perintah:
 ```
 sudo pacman -S python-virtualenv
 ```
 
-Membuat Virtual Environment, dengan perintah:
+Membuat Virtual Environment di Arch, dengan perintah:
 ```
 python -m venv myenv
 ```
@@ -24,10 +24,25 @@ Ketika ingin menonaktikan-nya dengan perintah:
 ```
 deactivate
 ```
+# 2 - Membuat Virtual Environment di Fedora
+Membuat Virtual Environment di Fedora, dengan perintah:
+```
+python3 -m venv .venv
+```
+
+Aktifkan dengan perintah:
+```
+source .venv/bin/activate
+```
+
+Ketika ingin menonaktikan-nya dengan perintah:
+```
+deactivate
+```
 # 3 - Instal Library Python
 Gunakan perintah:
 ```
-pip install [nama library]
+pip install numpy pandas matplotlib
 ```
 # 4 - Menjalankan File Python
 Gunakan perintah di terminal:
